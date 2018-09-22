@@ -1,0 +1,14 @@
+DECLARE @faction varchar(7),
+	@country tinyint,
+	@command varchar(150)
+SET @country = (SELECT Country FROM UserMaxGrow WHERE UserUID = @UserUID)
+
+	IF @country = 1
+		SET @faction = ' [UoF]'
+	ELSE
+		SET @faction = ' [AoL]'
+
+	SET @command = N'/nt [' + CONVERT(varchar, GETDATE(),0) + '] ' +  @CharName + @faction + ' was just created. Happy gaming in the world of Shaiya.'
+	EXEC [OMG_GameWeb].[dbo].[Command]
+		@serviceName = N'ps_game',
+		@cmmd = @command
